@@ -1,0 +1,2170 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: master
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Twitter Image
+            name: twitter:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: brands
+    label: Brand Types
+    folder: cms/brands
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_brand-logo-image
+        label: Brand Logo Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_hero-bg-color
+        label: template page Hero Bg color
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - hint: ''
+        name: f_hero-ryt-image
+        label: Hero Ryt image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_hero-description
+        label: Hero Description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_index
+        label: Index
+        widget: number
+        required: false
+      - hint: ''
+        name: f_is-it-featured-in-home-page
+        label: is it featured in Home page
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_the-brands-home-page-tile-color
+        label: the brands home page tile color
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - hint: ''
+        name: f_products-by-brands-sub-img-1
+        label: Products by brands sub img 1
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_products-by-brands-sub-img-2
+        label: Products by brands sub img 2
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_products-by-page-description
+        label: Products by page description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_is-featured-on-products-by-brand-page
+        label: is featured on products by brand page
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_products-by-types
+        label: Products by types
+        widget: relation
+        required: false
+        collection: all_products
+        value_field: cms/all-products/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: brands
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[brands].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: blog
+    label: Blogs
+    folder: cms/blog
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Big Summary
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_bg-image
+        label: Bg image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_short-description
+        label: Short Description
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: blog
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[blog].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: product_category
+    label: Product Types
+    folder: cms/product-category
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_bg-image-2
+        label: bg image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_index
+        label: index
+        widget: number
+        required: false
+      - hint: ''
+        name: f_product-ryt-image
+        label: Product ryt image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_product-ryt-color
+        label: Product color
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - hint: ''
+        name: f_product-type-description
+        label: Product type description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_sub-products-bg-image
+        label: Sub products bg image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_products-by-category-type-description
+        label: Products by category type description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_products-by-category-type-related-products
+        label: Products by category type related products
+        widget: relation
+        required: false
+        collection: all_products
+        value_field: cms/all-products/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: true
+      - hint: ''
+        name: f_products-by-category-type-text-color
+        label: Products by category type text color
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: product-category
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[product-category].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: all_products
+    label: All Products
+    folder: cms/all-products
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Specification
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_bg-image
+        label: home page featured image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_sub-image-1
+        label: Sub Image 1
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_sub-image-2
+        label: Sub Image 2
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_index
+        label: index
+        widget: number
+        required: false
+      - hint: category
+        name: f_category-2
+        label: category
+        widget: relation
+        required: true
+        collection: product_category
+        value_field: cms/product-category/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - hint: ''
+        name: f_brands-type-2
+        label: Brands Type
+        widget: relation
+        required: false
+        collection: brands
+        value_field: cms/brands/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: true
+      - hint: ''
+        name: f_brand-page-related-same-brand-products
+        label: Brand page related same brand products
+        widget: relation
+        required: false
+        collection: all_products
+        value_field: cms/all-products/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: true
+      - hint: ''
+        name: f_is-home-page-featured
+        label: is home page featured
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_sub-title
+        label: Corporation Sub Title
+        widget: string
+        required: false
+      - hint: ''
+        name: f_description
+        label: Description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_product-type
+        label: Brand Type name
+        widget: string
+        required: false
+      - hint: ''
+        name: f_sku-number
+        label: SKU Number
+        widget: number
+        required: false
+      - hint: ''
+        name: f_nutritional-fact
+        label: Nutritional Fact
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_ingredients
+        label: Ingredients
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_product-type-description
+        label: Product Type Description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_sub-product-name-1
+        label: Sub product name 1
+        widget: string
+        required: false
+      - hint: ''
+        name: f_sub-product-name-2
+        label: Sub product name 2
+        widget: string
+        required: false
+      - hint: ''
+        name: f_sub-product-name-3
+        label: Sub product name 3
+        widget: string
+        required: false
+      - hint: ''
+        name: f_product-type-name
+        label: Product Type Name
+        widget: string
+        required: false
+      - hint: ''
+        name: f_product-page-related-products-name
+        label: product page related products name
+        widget: string
+        required: false
+      - hint: ''
+        name: f_product-page-related-products-tile-image-2
+        label: Product page related products tile image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_tags-for-related-products
+        label: Popularity of related products
+        widget: number
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: all-products
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[all-products].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Life happens,, key: 3798cd3f'
+            label: Text
+            name: 3798cd3f
+            widget: string
+          - hint: 'Original text: Chocolate helps, key: -5b8155b2'
+            label: Text
+            name: '-5b8155b2'
+            widget: string
+          - hint: 'Original text: +966 11 244 8740, key: -249bb89'
+            label: Text
+            name: '-249bb89'
+            widget: string
+          - hint: 'Original text: admin@naeemfoods.com, key: 3c83a4ff'
+            label: Text
+            name: 3c83a4ff
+            widget: string
+          - hint: 'Original text: Morning 6:00 am - 8:00pm, key: 7499966'
+            label: Text
+            name: '7499966'
+            widget: string
+          - hint: 'Original text: Riyadh, Saudi Arabia, key: 6db55375'
+            label: Text
+            name: 6db55375
+            widget: string
+          - hint: 'Original text: Product, key: 50c664cf'
+            label: Text
+            name: 50c664cf
+            widget: string
+          - hint: 'Original text: Brand, key: 3d75b67'
+            label: Text
+            name: 3d75b67
+            widget: string
+          - hint: 'Original text: Company, key: -64202ba3'
+            label: Text
+            name: '-64202ba3'
+            widget: string
+          - hint: 'Original text: Distribution, key: -546c5d5c'
+            label: Text
+            name: '-546c5d5c'
+            widget: string
+          - hint: 'Original text: Blog & Press, key: 7132f14b'
+            label: Text
+            name: 7132f14b
+            widget: string
+          - hint: 'Original text: CONTACT US, key: 253fd2be'
+            label: Text
+            name: 253fd2be
+            widget: string
+          - hint: 'Original text: Twist, Sparkle, key: 1ac795db'
+            label: Text
+            name: 1ac795db
+            widget: string
+          - hint: 'Original text: Indulge, key: -28ec060c'
+            label: Text
+            name: '-28ec060c'
+            widget: string
+          - hint: >-
+              Original text: Dive into the delectable world of our Choco
+              Chatty’s Single Twist Sparkle Chocolate. Each piece is a journey
+              of flavor, woven with luxury and an unexpected sparkling delight.,
+              key: -6001f167
+            label: Text
+            name: '-6001f167'
+            widget: text
+          - hint: 'Original text: VIEW ALL PRODUCTS, key: 5fba16be'
+            label: Text
+            name: 5fba16be
+            widget: string
+          - hint: 'Original text: KNOW MORE, key: 113bca'
+            label: Text
+            name: 113bca
+            widget: string
+          - hint: 'Original text: Choco Chatty’s, key: -4541e55f'
+            label: Text
+            name: '-4541e55f'
+            widget: string
+          - hint: 'Original text: EXOTIC CHEWY DELIGHT, key: 20b2afa9'
+            label: Text
+            name: 20b2afa9
+            widget: string
+          - hint: >-
+              Original text: Indulge in Rush Fruit’s exquisite toffees, a sweet
+              haven where tropical flavors meet creamy delight. Each piece is an
+              exploration of flavor and texture, promising an unparalleled
+              toffee experience with every chew, key: 4ff178a1
+            label: Text
+            name: 4ff178a1
+            widget: text
+          - hint: 'Original text: Fruit Mint N -Dee, key: 264d6c5b'
+            label: Text
+            name: 264d6c5b
+            widget: string
+          - hint: 'Original text: BURST OF BLISS, key: -65cb188a'
+            label: Text
+            name: '-65cb188a'
+            widget: string
+          - hint: >-
+              Original text: Uncover the sweet symphony packed in every N-Dee
+              candy. Let each bite take you on a flavorful journey, offering a
+              delightful burst of bliss and a unique taste experience that
+              lingers long after., key: -a49a141
+            label: Text
+            name: '-a49a141'
+            widget: text
+          - hint: 'Original text: TOFFEE -, key: -1ba2f058'
+            label: Text
+            name: '-1ba2f058'
+            widget: string
+          - hint: 'Original text:  CANDY - CHOCOLATE - , key: 32b3ac85'
+            label: Text
+            name: 32b3ac85
+            widget: string
+          - hint: 'Original text:  TOFFEE -, key: 6ceaefc8'
+            label: Text
+            name: 6ceaefc8
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: 'Original text: Explore Products by Category, key: 5540d5b8'
+            label: Text
+            name: 5540d5b8
+            widget: string
+          - hint: >-
+              Original text: Dive into diverse categories of delightful, sweet
+              indulgences!, key: -29031301
+            label: Text
+            name: '-29031301'
+            widget: string
+          - hint: 'Original text: VIEW ALL CATEGORIES, key: 3e5998f6'
+            label: Text
+            name: 3e5998f6
+            widget: string
+          - hint: 'Original text: Unveiling Our Brands, key: 75004b69'
+            label: Text
+            name: 75004b69
+            widget: string
+          - hint: >-
+              Original text: Explore a symphony of flavors with our
+              distinguished, premium brands, each telling a unique tale of
+              quality and taste!, key: -331a420d
+            label: Text
+            name: '-331a420d'
+            widget: text
+          - hint: 'Original text: VIEW ALL BRANDS, key: f13fda6'
+            label: Text
+            name: f13fda6
+            widget: string
+          - hint: 'Original text: About Naeem Foods, key: 3815d4fc'
+            label: Text
+            name: 3815d4fc
+            widget: string
+          - hint: >-
+              Original text: Established in 2004, Naeem Foods Sweets Factory is
+              the epitome of confectionery excellence, with a celebrated legacy
+              spanning over 15 years. Located in the revered land of Saudi
+              Arabia, we craft an exquisite array of chocolates, toffees, and
+              candies that delight global palates. Our commitment to unmatched
+              quality is evident in our meticulous production process,
+              state-of-the-art facilities, and adherence to international
+              standards. At our core are dedicated professionals—our
+              “pillars”—who embody perfection and uphold our esteemed values,
+              earning trust from global suppliers and connoisseurs alike. Dive
+              into a world of divine sweetness with Naeem Foods!, key: -4ef78d1c
+            label: Text
+            name: '-4ef78d1c'
+            widget: text
+          - hint: 'Original text: Premium Quality Chocolates, key: -71220fbf'
+            label: Text
+            name: '-71220fbf'
+            widget: string
+          - hint: >-
+              Original text: Naeem Foods takes pride in crafting high-quality
+              chocolates using the finest ingredients, ensuring that customers
+              enjoy a rich and indulgent chocolate experience, key: -2bd35ecb
+            label: Text
+            name: '-2bd35ecb'
+            widget: text
+          - hint: 'Original text: Diverse Flavor Selection, key: -20c31306'
+            label: Text
+            name: '-20c31306'
+            widget: string
+          - hint: >-
+              Original text: Customers can explore a diverse range of chocolate
+              flavors, from classic favorites to unique and innovative
+              varieties, offering something for every taste and occasion., key:
+              -54c5574e
+            label: Text
+            name: '-54c5574e'
+            widget: text
+          - hint: 'Original text: Freshness Guaranteed, key: 628ee997'
+            label: Text
+            name: 628ee997
+            widget: string
+          - hint: >-
+              Original text: Naeem Foods may offer customization services,
+              allowing customers to create personalized chocolates for special
+              events, gifts, or corporate branding, providing a unique and
+              memorable touch., key: -62441482
+            label: Text
+            name: '-62441482'
+            widget: text
+          - hint: 'Original text: Sustainable Sourcing, key: -34fc5ee5'
+            label: Text
+            name: '-34fc5ee5'
+            widget: string
+          - hint: >-
+              Original text: Highlight the company’s commitment to sustainable
+              sourcing practices, assuring customers that they are not only
+              enjoying delicious chocolates but also supporting ethical and
+              environmentally responsible production methods., key: 8e625a3
+            label: Text
+            name: 8e625a3
+            widget: text
+          - hint: 'Original text: Customer Testimonials, key: -6e53634a'
+            label: Text
+            name: '-6e53634a'
+            widget: string
+          - hint: >-
+              Original text: Naeem Foods' chocolates are a luxurious treat; each
+              bite tells a story of tradition and excellence, key: -26b47ede
+            label: Text
+            name: '-26b47ede'
+            widget: text
+          - hint: 'Original text: Omar K., Riyadh, key: -714b34d5'
+            label: Text
+            name: '-714b34d5'
+            widget: string
+          - hint: >-
+              Original text: Simply put, Naeem's toffees are the pinnacle of
+              confection perfection – unmatched in flavor and quality, key:
+              5a0919af
+            label: Text
+            name: 5a0919af
+            widget: text
+          - hint: 'Original text: Ahmed, key: 3c4e425'
+            label: Text
+            name: 3c4e425
+            widget: string
+          - hint: 'Original text: ., Jeddah, key: -603412dc'
+            label: Text
+            name: '-603412dc'
+            widget: string
+          - hint: >-
+              Original text: Delighting in Naeem Foods candies is like savoring
+              a piece of Saudi Arabia's rich heritage – absolutely divine, key:
+              633f1883
+            label: Text
+            name: 633f1883
+            widget: text
+          - hint: 'Original text: Salman., Dubai, key: -7f4c7e4d'
+            label: Text
+            name: '-7f4c7e4d'
+            widget: string
+          - hint: 'Original text: Latest Blog Posts, key: -6d263812'
+            label: Text
+            name: '-6d263812'
+            widget: string
+          - hint: 'Original text: VIEW ALL BLOGS, key: -7b64fa29'
+            label: Text
+            name: '-7b64fa29'
+            widget: string
+          - hint: >-
+              Original text: Discover the Joy of Flavor with Naeem Foods - Dive
+              into a World of Premium Chocolates & Toffees Today!, key: 63a7fad
+            label: Text
+            name: 63a7fad
+            widget: text
+          - hint: 'Original text: Follow us on Instagram, key: 526ce284'
+            label: Text
+            name: 526ce284
+            widget: string
+          - hint: 'Original text: @NAEEM_CHOCOLATES, key: -7aa8edc4'
+            label: Text
+            name: '-7aa8edc4'
+            widget: string
+          - hint: 'Original text: E MAIL, key: 77a550b2'
+            label: Text
+            name: 77a550b2
+            widget: string
+          - hint: 'Original text: info@naeemfoods.com, key: 30ab79c0'
+            label: Text
+            name: 30ab79c0
+            widget: string
+          - hint: 'Original text: support@naeemfoods.com, key: 4b7e987f'
+            label: Text
+            name: 4b7e987f
+            widget: string
+          - hint: 'Original text: HEAD OFFICE, key: 1cdf78fc'
+            label: Text
+            name: 1cdf78fc
+            widget: string
+          - hint: 'Original text: Building No.28 & No.29 , , key: -3d18110d'
+            label: Text
+            name: '-3d18110d'
+            widget: string
+          - hint: 'Original text: Kitab st. , AS-SULAY, , key: 449911ab'
+            label: Text
+            name: 449911ab
+            widget: string
+          - hint: 'Original text: RIYADH, K.S.A, key: 4dae82ac'
+            label: Text
+            name: 4dae82ac
+            widget: string
+          - hint: 'Original text: CONTACT, key: 6382b000'
+            label: Text
+            name: 6382b000
+            widget: string
+          - hint: >-
+              Original text: © 2023 Naeem Foods. All Rights Reserved., key:
+              -10253b2d
+            label: Text
+            name: '-10253b2d'
+            widget: string
+          - hint: 'Original text: Designed & Developed by , key: 8fbba88'
+            label: Text
+            name: 8fbba88
+            widget: string
+          - hint: 'Original text: Emilda Solutions, key: -7c9b8a7e'
+            label: Text
+            name: '-7c9b8a7e'
+            widget: string
+          - hint: 'Original text: NAEEM FOODS..., key: -22ab3121'
+            label: Text
+            name: '-22ab3121'
+            widget: string
+          - hint: 'Original text: BRAND, key: 3c85367'
+            label: Text
+            name: 3c85367
+            widget: string
+          - hint: 'Original text: TYPE, key: 27873a'
+            label: Text
+            name: 27873a
+            widget: string
+          - hint: 'Original text: SKU NUMBER, key: 48534fcc'
+            label: Text
+            name: 48534fcc
+            widget: string
+          - hint: 'Original text: SEND A ENQUIRY, key: 5f92152c'
+            label: Text
+            name: 5f92152c
+            widget: string
+          - hint: 'Original text: Specification, key: 7d8970e3'
+            label: Text
+            name: 7d8970e3
+            widget: string
+          - hint: 'Original text: Nutritional Fact, key: -21f7e117'
+            label: Text
+            name: '-21f7e117'
+            widget: string
+          - hint: 'Original text: Ingredients, key: -19fa8f5e'
+            label: Text
+            name: '-19fa8f5e'
+            widget: string
+          - hint: 'Original text: Similar Products, key: -40a803c7'
+            label: Text
+            name: '-40a803c7'
+            widget: string
+          - hint: 'Original text: Summary, key: -b80c07a'
+            label: Text
+            name: '-b80c07a'
+            widget: string
+          - hint: 'Original text: Don’t Miss an Opportunity, key: 2d05a382'
+            label: Text
+            name: 2d05a382
+            widget: string
+          - hint: 'Original text: Join Our Distribution Network, key: -28e050e4'
+            label: Text
+            name: '-28e050e4'
+            widget: string
+          - hint: >-
+              Original text: Becoming a distributor for Naeem Foods Sweets
+              Factory opens up a profitable opportunity to be part of a revered
+              legacy in the confectionery industry. With a wide array of
+              high-quality products, from our delicate, milky Entry chocolates
+              to the rich and flavorful D-light toffees, we offer an exquisite
+              range of options that cater to diverse taste preferences. Our
+              distributors benefit from strong support, competitive pricing
+              structures, and the prestige of associating with a brand known for
+              excellence and consistent consumer demand. Whether you are looking
+              to expand your product line or enter the thriving sweets market,
+              Naeem Foods provides a robust platform for success. Join us in
+              delivering joy and premium quality to sweet lovers around the
+              world!, key: -7f0f7378
+            label: Text
+            name: '-7f0f7378'
+            widget: text
+          - hint: 'Original text: Start Distributing Delight!, key: 46f08fb0'
+            label: Text
+            name: 46f08fb0
+            widget: string
+          - hint: >-
+              Original text: Apply below to become a valued distributor of our
+              premium confections!”, key: 5cc0eac5
+            label: Text
+            name: 5cc0eac5
+            widget: string
+          - hint: 'Original text: SUBMIT, key: -6d90cbe8'
+            label: Text
+            name: '-6d90cbe8'
+            widget: string
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: Contact Us, key: 7f2746de'
+            label: Text
+            name: 7f2746de
+            widget: string
+          - hint: 'Original text: Email, key: 3ff5b7c'
+            label: Text
+            name: 3ff5b7c
+            widget: string
+          - hint: >-
+              Original text: For inquiries, suggestions, or feedback, drop us an
+              email anytime., key: -4ca2159a
+            label: Text
+            name: '-4ca2159a'
+            widget: string
+          - hint: 'Original text: MAIL NOW, key: 2e0004cd'
+            label: Text
+            name: 2e0004cd
+            widget: string
+          - hint: 'Original text: Live Chat, key: -4ff7e5f4'
+            label: Text
+            name: '-4ff7e5f4'
+            widget: string
+          - hint: >-
+              Original text: Instant assistance? Engage with our live chat for
+              immediate support., key: 48a577a0
+            label: Text
+            name: 48a577a0
+            widget: string
+          - hint: 'Original text: CHAT NOW, key: -7bb62612'
+            label: Text
+            name: '-7bb62612'
+            widget: string
+          - hint: 'Original text: Phone, key: 4984d4e'
+            label: Text
+            name: 4984d4e
+            widget: string
+          - hint: >-
+              Original text: Have urgent questions? Call us for immediate
+              assistance and support., key: 4ba75303
+            label: Text
+            name: 4ba75303
+            widget: string
+          - hint: 'Original text: CALL NOW, key: 2452cdf4'
+            label: Text
+            name: 2452cdf4
+            widget: string
+          - hint: 'Original text: Office, key: -7363d524'
+            label: Text
+            name: '-7363d524'
+            widget: string
+          - hint: >-
+              Original text: Visit Our Headquarters Building No.28 & No.29 ,
+              Kitab st. , AS-SULAY, RIYADH, K.S.A, key: -41bf76e2
+            label: Text
+            name: '-41bf76e2'
+            widget: string
+          - hint: 'Original text: VISIT US, key: -72e6664d'
+            label: Text
+            name: '-72e6664d'
+            widget: string
+          - hint: 'Original text: Leave Your Message, key: 7edc7403'
+            label: Text
+            name: 7edc7403
+            widget: string
+          - hint: 'Original text: Frequently Asked Questions (FAQs), key: 3163c1e4'
+            label: Text
+            name: 3163c1e4
+            widget: string
+          - hint: >-
+              Original text: Find answers to commonly asked questions about our
+              products and services below., key: -75b49aef
+            label: Text
+            name: '-75b49aef'
+            widget: string
+          - hint: >-
+              Original text: What sets Naeem Foods products apart?, key:
+              14a032a3
+            label: Text
+            name: 14a032a3
+            widget: string
+          - hint: >-
+              Original text: A blend of Saudi tradition and global flavors,
+              crafted with meticulous precision., key: 550114bf
+            label: Text
+            name: 550114bf
+            widget: string
+          - hint: >-
+              Original text: Do you offer limited-edition products?, key:
+              -6ee28bb4
+            label: Text
+            name: '-6ee28bb4'
+            widget: string
+          - hint: >-
+              Original text: Yes, we frequently introduce specialty and
+              limited-edition confections., key: -2c09fe60
+            label: Text
+            name: '-2c09fe60'
+            widget: string
+          - hint: >-
+              Original text: Are Naeem Food products allergen-friendly?, key:
+              -762ae34b
+            label: Text
+            name: '-762ae34b'
+            widget: string
+          - hint: >-
+              Original text: Many products are halal-certified. Check labels or
+              contact us for allergen info., key: -2341c17c
+            label: Text
+            name: '-2341c17c'
+            widget: string
+          - hint: >-
+              Original text: How does Naeem ensure product quality?, key:
+              aa31856
+            label: Text
+            name: aa31856
+            widget: string
+          - hint: >-
+              Original text: Through state-of-the-art facilities and strict
+              adherence to international standards., key: -30c5783b
+            label: Text
+            name: '-30c5783b'
+            widget: string
+          - hint: 'Original text: Downloadables, key: 319992b1'
+            label: Text
+            name: 319992b1
+            widget: string
+          - hint: >-
+              Original text: Access and download our product catalogs,
+              brochures, and other informative materials below., key: -4442ca15
+            label: Text
+            name: '-4442ca15'
+            widget: text
+          - hint: 'Original text: Discover Our Sweet Legacy, key: -51a2491c'
+            label: Text
+            name: '-51a2491c'
+            widget: string
+          - hint: 'Original text: Our Story, key: 4f142e1'
+            label: Text
+            name: 4f142e1
+            widget: string
+          - hint: >-
+              Original text: Crafting quality confections since 2004
+              passionately., key: -56b3a250
+            label: Text
+            name: '-56b3a250'
+            widget: string
+          - hint: 'Original text: 2004, key: 1774c2'
+            label: Text
+            name: 1774c2
+            widget: string
+          - hint: >-
+              Original text: Established Naeem Foods Sweets Factory in Saudi
+              Arabia, laying the foundation for confectionery excellence., key:
+              1b87911e
+            label: Text
+            name: 1b87911e
+            widget: text
+          - hint: 'Original text: 2006, key: 1774c4'
+            label: Text
+            name: 1774c4
+            widget: string
+          - hint: >-
+              Original text: Inaugurated our state-of-the-art production
+              facility, ensuring quality meets international standards., key:
+              6c8944e2
+            label: Text
+            name: 6c8944e2
+            widget: text
+          - hint: 'Original text: 2010, key: 1774dd'
+            label: Text
+            name: 1774dd
+            widget: string
+          - hint: >-
+              Original text: Secured major national partnerships, becoming a
+              preferred supplier for Saudi's top retailers., key: -4215099a
+            label: Text
+            name: '-4215099a'
+            widget: text
+          - hint: 'Original text: 2013, key: 1774e0'
+            label: Text
+            name: '1774e0'
+            widget: string
+          - hint: >-
+              Original text: Achieved halal certification, strengthening our
+              commitment to cultural and dietary standards., key: -72c5690a
+            label: Text
+            name: '-72c5690a'
+            widget: text
+          - hint: 'Original text: 2015, key: 1774e2'
+            label: Text
+            name: '1774e2'
+            widget: string
+          - hint: >-
+              Original text: Collaborated with renowned chefs for limited
+              edition gourmet chocolates, showcasing innovation and artistry.,
+              key: -4285d22e
+            label: Text
+            name: '-4285d22e'
+            widget: text
+          - hint: >-
+              Original text: Adhering to principles of ethical business conduct,
+              we fostered robust relationships with suppliers across the globe.,
+              key: 158cc88b
+            label: Text
+            name: 158cc88b
+            widget: text
+          - hint: 'Original text: Letter from the Founder, key: 4926d804'
+            label: Text
+            name: 4926d804
+            widget: string
+          - hint: >-
+              Original text: Since 2004, Naeem Foods Sweets Factory has been
+              devoted to crafting confections that epitomize quality and
+              tradition. Our chocolates, toffees, and candies are not just
+              products; they are expressions of our commitment to excellence and
+              joy. Each bite encapsulates our journey, values, and the sweet
+              legacy we aim to leave behind. Thank you for being part of this
+              delightful adventure. Indulge and enjoy!, key: 6eb828c3
+            label: Text
+            name: 6eb828c3
+            widget: text
+          - hint: 'Original text: K.N IZZUDDEEN, key: 23b39c0d'
+            label: Text
+            name: 23b39c0d
+            widget: string
+          - hint: 'Original text: CEO & FOUNDER, key: -42efe9e'
+            label: Text
+            name: '-42efe9e'
+            widget: string
+          - hint: 'Original text: Mission, key: -5d08e694'
+            label: Text
+            name: '-5d08e694'
+            widget: string
+          - hint: 'Original text: Crafting confections that blend , key: 1965e507'
+            label: Text
+            name: '1965e507'
+            widget: string
+          - hint: 'Original text: Saudi heritage, key: -226892ed'
+            label: Text
+            name: '-226892ed'
+            widget: string
+          - hint: >-
+              Original text:  with global palates. Every bite is a journey
+              through tradition, flavor, and love., key: 2c6375e9
+            label: Text
+            name: 2c6375e9
+            widget: string
+          - hint: 'Original text: Vision, key: -6741b7f8'
+            label: Text
+            name: '-6741b7f8'
+            widget: string
+          - hint: 'Original text: To be the world''s , key: -1c47b457'
+            label: Text
+            name: '-1c47b457'
+            widget: string
+          - hint: 'Original text: foremost ambassador, key: -2dfc82ae'
+            label: Text
+            name: '-2dfc82ae'
+            widget: string
+          - hint: >-
+              Original text:  of Arabian confectionery excellence, connecting
+              cultures through sweetness., key: -43a99748
+            label: Text
+            name: '-43a99748'
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: /products-by-type-category/, key: 7c772f9a'
+            label: Link
+            name: 7c772f9a
+            widget: string
+          - hint: 'Original link: /all-products-page/, key: -1a50360e'
+            label: Link
+            name: '-1a50360e'
+            widget: string
+          - hint: 'Original link: /about-us/, key: -766f6c3e'
+            label: Link
+            name: '-766f6c3e'
+            widget: string
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: /distribution-page/, key: -5209ae9a'
+            label: Link
+            name: '-5209ae9a'
+            widget: string
+          - hint: 'Original link: /blogs/, key: 63a5be2d'
+            label: Link
+            name: 63a5be2d
+            widget: string
+          - hint: 'Original link: /contact-us/, key: 6bfbaa95'
+            label: Link
+            name: 6bfbaa95
+            widget: string
+          - hint: 'Original link: https://www.emildasolutions.com/, key: 6184bf70'
+            label: Link
+            name: 6184bf70
+            widget: string
+          - hint: 'Original link: mailto:info@naeemfoods.com, key: -60591f48'
+            label: Link
+            name: '-60591f48'
+            widget: string
+          - hint: 'Original link: tel:+966112448740, key: 4a7e96c0'
+            label: Link
+            name: 4a7e96c0
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i55db92f4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3efa7d5f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i2d3254b0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7dd43900
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3d45a4c0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i28575e7d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 693791b2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i30b6faae
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 71c5e42e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2f729c2d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 6e756f28
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 6cc09689
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i26d807ed
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-750ddf74'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3b3a1322'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3abb3f99'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3ac9571a'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3ad76e9b'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1ee00cca'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 42f01006
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 490d1a05
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 491b3186
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '49376088'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '49294907'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '49457809'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-19dde280'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-39853a83'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3ad8ab2c'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 454641da
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4bc414f5'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-101e20aa'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4db356a9
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3b0fcc9f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3b1de420'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3b2bfba1'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-39772302'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-393ec4fe'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-394cdc7f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: fd58b4c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3b01b51e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3af39d9d'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-741adfd0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 220cbb3e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2bee85b5'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 20f1873e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7558815'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '6824900'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 99ec341
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3da44cbb'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 433f5368
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow

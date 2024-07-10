@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="79.991" height="60" viewBox="0 0 79.991 60">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#944f32"/>
+      <stop offset="1" stop-color="#b87656"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_365" data-name="Group 365" transform="translate(-603.01 -3951.006)">
+    <ellipse id="Ellipse_24" data-name="Ellipse 24" cx="26.684" cy="11.175" rx="26.684" ry="11.175" transform="translate(603.01 3988.656) rotate(-0.413)" fill="#e2d3c7"/>
+    <ellipse id="Ellipse_25" data-name="Ellipse 25" cx="28.959" cy="11.174" rx="28.959" ry="11.174" transform="translate(624.921 3969.081) rotate(-0.413)" fill="#e2d3c7"/>
+    <path id="Path_5610" data-name="Path 5610" d="M408.017,380.954h0l-.008-.031c-.019-.086-.044-.172-.068-.257l-4.814-18.233-37.614.052-3.829,17.455a4.915,4.915,0,0,0-.437,1.991c0,5.724,10.493,10.364,23.437,10.364s23.437-4.64,23.437-10.364A4.643,4.643,0,0,0,408.017,380.954Z" transform="translate(274.685 3595.648)" fill="url(#linear-gradient)"/>
+    <ellipse id="Ellipse_26" data-name="Ellipse 26" cx="18.833" cy="7.387" rx="18.833" ry="7.387" transform="translate(640.148 3951.006)" fill="#854228"/>
+    <path id="Path_5611" data-name="Path 5611" d="M359.246,416.954h0l-.008-.031c-.019-.086-.044-.172-.068-.257l-4.814-18.233-37.614.052-3.829,17.455a4.915,4.915,0,0,0-.437,1.991c0,5.724,10.493,10.364,23.437,10.364s23.437-4.64,23.437-10.364A4.643,4.643,0,0,0,359.246,416.954Z" transform="translate(296.692 3579.403)" fill="url(#linear-gradient)"/>
+    <ellipse id="Ellipse_27" data-name="Ellipse 27" cx="18.833" cy="7.387" rx="18.833" ry="7.387" transform="translate(613.384 3970.762)" fill="#854228"/>
+  </g>
+</svg>
